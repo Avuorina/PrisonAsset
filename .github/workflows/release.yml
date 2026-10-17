@@ -1,12 +1,22 @@
-# v から始まるタグ(v1, v2 …)を push すると、リソースパックの zip を作ってリリースに置く
+# リソースパックの zip を作ってリリースに置く
+#   main に push したとき(パックの中身が変わったとき) : リリース「latest」を作り直す(URL は変わらない)
+#   v から始まるタグ(v1, v2 …)を push したとき       : そのタグのリリースを作る(固定版)
 #   zip の一番上に pack.mcmeta と assets/ が来るようにする(サーバー配布用)
 #   リリースの説明に SHA-1 と server.properties に書く行を出す
 name: Release resource pack
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - "pack.mcmeta"
+      - "pack.png"
+      - "assets/**"
+      - ".github/workflows/release.yml"
     tags:
       - "v*"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -26,8 +36,14 @@ jobs:
       - name: リリースを作る
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.ref_name }}
         run: |
+          # タグの push ならそのタグ、それ以外(main への push・手動実行)は latest を作り直す
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            TAG="${GITHUB_REF_NAME}"
+          else
+            TAG="latest"
+            gh release delete latest --cleanup-tag --yes || true
+          fi
           URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}/PrisonAsset.zip"
           cat > notes.md <<NOTES
           ## server.properties に書く行
@@ -40,4 +56,4 @@ jobs:
 
           SHA-1: \`${SHA1}\`
           NOTES
-          gh release create "$TAG" PrisonAsset.zip --title "PrisonAsset $TAG" --notes-file notes.md
+          gh release create "$TAG" PrisonAsset.zip --target "${GITHUB_SHA}" --title "PrisonAsset $TAG" --notes-file notes.md

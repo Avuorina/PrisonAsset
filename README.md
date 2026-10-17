@@ -7,12 +7,12 @@
 - **自分で入れる**：リリースの `PrisonAsset.zip` を `resourcepacks` フォルダに入れる
 
 ## リリースの出し方
-`v1` `v2` … のタグを push すると、GitHub Actions が zip を作ってリリースに置く(SHA-1 も出す)。
+GitHub Actions が zip を作ってリリースに置く(SHA-1 も出す)。
+- **main に push**(パックの中身が変わったとき)：リリース `latest` を作り直す。URL は変わらない
+  `https://github.com/Avuorina/PrisonAsset/releases/download/latest/PrisonAsset.zip`
+- **`v1` `v2` … のタグを push**：そのタグの固定版リリースを作る
 
-```
-git tag v2
-git push origin v2
-```
+SHA-1 は中身が変わるたびに変わるので、`server.properties` の `resource-pack-sha1` も書き直す。
 
 ## 見た目を切り替えているアイテム
 `custom_model_data` の `strings` の1つ目で切り替える。
