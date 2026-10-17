@@ -13,6 +13,7 @@
 | trial_key | key_light_blue / key_blue / key_red / key_yellow / key_purple | prison:item/key_* |
 | ominous_trial_key | key_master | prison:item/key_master |
 | stick | baton | prison:item/baton |
+| lead | handcuffs | prison:item/handcuffs |
 
 ## 元データ
 Blockbench の `.bbmodel` は `blockbench/` に置く。
