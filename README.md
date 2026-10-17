@@ -18,3 +18,10 @@
 
 ## 元データ
 Blockbench の `.bbmodel` は `blockbench/` に置く。
+
+## item_model で直接使うもの
+`item_model` コンポーネントで指定する。
+
+| item_model | 使う場面 |
+| --- | --- |
+| prison:camera | 監視カメラの模型(item_display) |
