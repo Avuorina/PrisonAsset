@@ -14,6 +14,7 @@
 | ominous_trial_key | key_master | prison:item/key_master |
 | stick | baton | prison:item/baton |
 | lead | handcuffs | prison:item/handcuffs |
+| carrot_on_a_stick | camera_remote | 表示しない(minecraft:empty) |
 
 ## 元データ
 Blockbench の `.bbmodel` は `blockbench/` に置く。
