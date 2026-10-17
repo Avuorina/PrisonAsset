@@ -9,6 +9,12 @@
                 "model": {
                     "type": "minecraft:empty"
                 }
+            },
+            {
+                "when": "schedule_speed",
+                "model": {
+                    "type": "minecraft:empty"
+                }
             }
         ],
         "fallback": {
