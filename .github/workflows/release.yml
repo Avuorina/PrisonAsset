@@ -1,0 +1,43 @@
+# v から始まるタグ(v1, v2 …)を push すると、リソースパックの zip を作ってリリースに置く
+#   zip の一番上に pack.mcmeta と assets/ が来るようにする(サーバー配布用)
+#   リリースの説明に SHA-1 と server.properties に書く行を出す
+name: Release resource pack
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: zip を作る
+        run: |
+          zip -r -X PrisonAsset.zip pack.mcmeta assets
+          [ -f pack.png ] && zip -X PrisonAsset.zip pack.png || true
+          echo "SHA1=$(sha1sum PrisonAsset.zip | cut -d' ' -f1)" >> "$GITHUB_ENV"
+
+      - name: リリースを作る
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}/PrisonAsset.zip"
+          cat > notes.md <<NOTES
+          ## server.properties に書く行
+
+          \`\`\`properties
+          require-resource-pack=true
+          resource-pack=${URL}
+          resource-pack-sha1=${SHA1}
+          \`\`\`
+
+          SHA-1: \`${SHA1}\`
+          NOTES
+          gh release create "$TAG" PrisonAsset.zip --title "PrisonAsset $TAG" --notes-file notes.md

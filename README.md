@@ -3,7 +3,16 @@
 刑務所マップ（[Prison](https://github.com/Avuorina/Prison)）用のリソースパック。対象は Minecraft Java Edition 26.3。
 
 ## 使い方
-このリポジトリの中身（`pack.mcmeta` と `assets/`）を zip にして `resourcepacks` フォルダに入れる。
+- **サーバーで配る**：[リリース](https://github.com/Avuorina/PrisonAsset/releases) の説明にある3行を `server.properties` に書く
+- **自分で入れる**：リリースの `PrisonAsset.zip` を `resourcepacks` フォルダに入れる
+
+## リリースの出し方
+`v1` `v2` … のタグを push すると、GitHub Actions が zip を作ってリリースに置く(SHA-1 も出す)。
+
+```
+git tag v2
+git push origin v2
+```
 
 ## 見た目を切り替えているアイテム
 `custom_model_data` の `strings` の1つ目で切り替える。
