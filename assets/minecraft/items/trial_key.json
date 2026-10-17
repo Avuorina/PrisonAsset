@@ -1,0 +1,48 @@
+{
+    "model": {
+        "type": "minecraft:select",
+        "property": "minecraft:custom_model_data",
+        "index": 0,
+        "cases": [
+            {
+                "when": "key_light_blue",
+                "model": {
+                    "type": "minecraft:model",
+                    "model": "prison:item/key_light_blue"
+                }
+            },
+            {
+                "when": "key_blue",
+                "model": {
+                    "type": "minecraft:model",
+                    "model": "prison:item/key_blue"
+                }
+            },
+            {
+                "when": "key_red",
+                "model": {
+                    "type": "minecraft:model",
+                    "model": "prison:item/key_red"
+                }
+            },
+            {
+                "when": "key_yellow",
+                "model": {
+                    "type": "minecraft:model",
+                    "model": "prison:item/key_yellow"
+                }
+            },
+            {
+                "when": "key_purple",
+                "model": {
+                    "type": "minecraft:model",
+                    "model": "prison:item/key_purple"
+                }
+            }
+        ],
+        "fallback": {
+            "type": "minecraft:model",
+            "model": "minecraft:item/trial_key"
+        }
+    }
+}
